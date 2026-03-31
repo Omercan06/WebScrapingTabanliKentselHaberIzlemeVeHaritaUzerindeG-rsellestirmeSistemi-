@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+motor
+beautifulsoup4
+requests
+sentence-transformers
+scikit-learn
+python-dotenv
+pydantic

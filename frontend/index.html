@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kocaeli Haber Haritası | Premium Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Google Fonts: Inter & Outfit for a modern look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for professional icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <div class="brand-icon">
+                        <i class="fas fa-map-location-dot"></i>
+                    </div>
+                    <h2>Haber Haritası</h2>
+                </div>
+            </div>
+            
+            <div class="sidebar-content">
+                <!-- Filters Section -->
+                <div class="filter-section">
+                    <span class="section-title">Zaman ve Bölge</span>
+                    
+                    <div class="filter-group">
+                        <input type="date" id="date-start" class="glass-input" title="Başlangıç Tarihi">
+                        <input type="date" id="date-end" class="glass-input" title="Bitiş Tarihi">
+                    </div>
+                    
+                    <div class="filter-group">
+                        <select id="district-select" class="glass-input district-select">
+                            <option value="Tümü">📍 Tüm İlçeler</option>
+                            <option value="İzmit">İzmit</option>
+                            <option value="Gebze">Gebze</option>
+                            <option value="Gölcük">Gölcük</option>
+                            <option value="Körfez">Körfez</option>
+                            <option value="Derince">Derince</option>
+                            <option value="Kartepe">Kartepe</option>
+                            <option value="Darıca">Darıca</option>
+                            <option value="Çayırova">Çayırova</option>
+                            <option value="Karamürsel">Karamürsel</option>
+                            <option value="Dilovası">Dilovası</option>
+                            <option value="Başiskele">Başiskele</option>
+                            <option value="Kandıra">Kandıra</option>
+                        </select>
+                    </div>
+                    
+                    <span class="section-title">Kategoriler</span>
+                    <div class="checkbox-grid">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="cat-trafik" value="Trafik Kazası" checked>
+                            <label for="cat-trafik">🚗 Trafik Kazası</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="cat-yangin" value="Yangın" checked>
+                            <label for="cat-yangin">🔥 Yangın</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="cat-elektrik" value="Elektrik Kesintisi" checked>
+                            <label for="cat-elektrik">⚡ Elektrik Kesintisi</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="cat-hirsizlik" value="Hırsızlık" checked>
+                            <label for="cat-hirsizlik">🦹 Hırsızlık</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="cat-kultur" value="Kültürel Etkinlikler" checked>
+                            <label for="cat-kultur">🎭 Kültürel Etkinlikler</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-container">
+                    <button id="apply-filters" class="primary-btn">
+                        <i class="fas fa-filter"></i> Filtreleri Uygula
+                    </button>
+                    <button id="trigger-scrape" class="secondary-btn">
+                        <i class="fas fa-sync-alt"></i> Haberleri Güncelle
+                    </button>
+                </div>
+                
+                <!-- Recent News Section -->
+                <div class="news-section">
+                    <span class="section-title">Son Olaylar</span>
+                    <div id="recent-news-list" class="news-list">
+                        <!-- News items will be populated here via JS -->
+                        <div class="news-list-loader">Veriler yükleniyor...</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Map Container -->
+        <main class="map-container">
+            <div id="map"></div>
+        </main>
+    </div>
+
+    <!-- Configuration for API Keys -->
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
