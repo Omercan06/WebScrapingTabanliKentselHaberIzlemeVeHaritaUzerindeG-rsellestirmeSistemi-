@@ -1,45 +1,47 @@
 # 📍 Kentsel Haber İzleme ve Harita Üzerinde Görselleştirme Sistemi
 
+![Proje Arayüzü](BURAYA_ISSUE_ÜZERİNDEN_ALDIĞIN_GÖRSEL_LİNKİNİ_YAPIŞTIR)
+
 ![Kocaeli University](https://img.shields.io/badge/Kocaeli_University-Computer_Engineering-blue) ![Project Status](https://img.shields.io/badge/Status-Completed-success) ![Python](https://img.shields.io/badge/Python-3.12+-yellow) ![FastAPI](https://img.shields.io/badge/FastAPI-Latest-009688) ![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248)
 
-Bu proje, Kocaeli yerel haber sitelerinden (Çağdaş Kocaeli, Özgür Kocaeli, Ses Kocaeli, Yeni Kocaeli ve Bizim Yaka) son 3 güne ait verileri **Web Scraping** yöntemleriyle toplayan, **Doğal Dil İşleme (NLP)** kullanarak sınıflandıran ve elde edilen olayları **Google Maps API** üzerinden interaktif bir harita üzerinde sunan uçtan uca bir sistemdir.
+## 📖 Proje Hakkında
+Bu sistem, Kocaeli yerel haber kaynaklarından son 3 güne ait verileri otomatik olarak toplayan, **Doğal Dil İşleme (NLP)** ile kategorize eden ve olayları **Google Maps API** üzerinden interaktif bir haritada görselleştiren uçtan uca bir platformdur. Proje, Kocaeli Üniversitesi Yazılım Laboratuvarı-II dersi kapsamında geliştirilmiştir.
 
 ## 🚀 Öne Çıkan Özellikler
 
-* **Akıllı Scraping:** 5 farklı yerel kaynaktan otomatik veri çekme ve asenkron HTML temizliği.
-* **NLP ile Sınıflandırma:** `intfloat/multilingual-e5-base` modeli kullanılarak haberlerin; *Trafik Kazası, Yangın, Hırsızlık, Elektrik Kesintisi ve Kültürel Etkinlikler* kategorilerine AI desteğiyle atanması.
-* **Semantik Tekrar Engelleme:** Farklı kaynaklarda yer alan ancak içerik olarak aynı olan haberlerin %90 ve üzeri benzerlik oranıyla tespit edilip tek bir marker altında birleştirilmesi.
-* **Otomatik Konum Çıkarımı:** Haber metninden mahalle ve sokak bilgilerinin Regex ve NLP ile ayıklanıp koordinata dönüştürülmesi.
-* **Dinamik Dashboard:** Harita yeniden yüklenmeden anlık filtreleme (tarih, ilçe, tür) ve haber detaylarına hızlı erişim.
+* **Otomatik Veri Toplama (Web Scraping):** Çağdaş Kocaeli, Özgür Kocaeli, Ses Kocaeli, Yeni Kocaeli ve Bizim Yaka sitelerinden asenkron olarak veri çeker.
+* **NLP ile Akıllı Sınıflandırma:** `intfloat/multilingual-e5-base` modeli kullanılarak haberler; *Trafik Kazası, Yangın, Hırsızlık, Elektrik Kesintisi ve Kültürel Etkinlikler* kategorilerine %74+ doğruluk eşiğiyle atanır.
+* **Semantik Benzerlik Denetimi:** İçerik olarak %90 ve üzeri benzerlik gösteren haberler tespit edilir ve harita üzerinde tek bir noktada tüm kaynaklarıyla listelenir.
+* **Konum ve Geocoding:** Haber metninden mahalle/sokak bilgileri Regex ile ayıklanır ve Google Geocoding API ile koordinata dönüştürülür.
+* **Maliyet Tasarrufu (Caching):** Aynı konum için tekrar API çağrısı yapmamak adına MongoDB tabanlı bir koordinat önbellekleme sistemi kullanılır.
 
 ## 🛠 Teknik Mimari
 
-### Backend (Python - FastAPI)
-* **Veritabanı:** MongoDB (Zorunlu ister kapsamında Schema Validasyonu ve Unique Index desteğiyle).
-* **NLP & AI:** `Sentence-Transformers` ve `PyTorch` tabanlı semantik analiz motoru.
-* **Geocoding:** Google Maps Geocoding API entegrasyonu ve maliyet tasarrufu için MongoDB tabanlı konum önbellekleme (Caching).
-* **Scraping:** `httpx` ve `BeautifulSoup4` ile asenkron veri toplama.
+### Backend (Python)
+* **Framework:** FastAPI (Asenkron API yapısı).
+* **Veritabanı:** MongoDB (Schema Validation ile zorunlu veri yapısı korunur).
+* **AI & NLP:** `Sentence-Transformers` (E5 Embedding modeli).
+* **Kütüphaneler:** `Motor` (Async MongoDB), `httpx` (Async Request), `BeautifulSoup4` (HTML Parsing).
 
-### Frontend (Modern Web)
-* **Harita:** Google Maps JavaScript API (Advanced Markers ve Custom Dark Style).
-* **Arayüz:** CSS Glassmorphism ve modern dashboard tasarımı (Inter & Outfit fontları ile premium görünüm).
+### Frontend (Modern Dashboard)
+* **Google Maps JS API:** Advanced Markers ve özel Gece Modu harita tasarımı.
+* **Tasarım:** Glassmorphism efekti, CSS değişkenleri ile dinamik tema ve duyarlı (responsive) yapı.
 
-## 📂 Dosya Yapısı
-
+## 📂 Proje Yapısı
 ```bash
 .
 ├── backend/
-│   ├── main.py            # FastAPI API uç noktaları
-│   ├── scraper.py         # Web scraping ve veri toplama boru hattı
-│   ├── nlp_processor.py   # AI Sınıflandırma ve semantik benzerlik motoru
-│   ├── geocoder.py        # Konum-Koordinat dönüşümü ve Cache sistemi
-│   ├── database.py        # MongoDB bağlantısı ve Schema validasyonu
-│   └── requirements.txt   # Gerekli kütüphaneler
+│   ├── main.py            # API uç noktaları ve startup konfigürasyonu
+│   ├── scraper.py         # Haber siteleri için özel geliştirilmiş tarayıcı
+│   ├── nlp_processor.py   # AI Sınıflandırma ve semantik analiz
+│   ├── geocoder.py        # Konum-Koordinat dönüşüm mantığı
+│   ├── database.py        # MongoDB Schema ve Index tanımları
+│   └── requirements.txt   # Gerekli bağımlılıklar listesi
 ├── frontend/
-│   ├── index.html         # Ana dashboard arayüzü
-│   ├── style.css          # Modern görsel tasarım
-│   ├── app.js             # Harita mantığı ve API entegrasyonu
-│   └── config.js          # API Anahtarları ve yapılandırma
+│   ├── index.html         # Uygulama ana arayüzü
+│   ├── style.css          # Modern görsel tasarım dosyası
+│   ├── app.js             # Harita ve filtreleme mantığı
+│   └── config.js          # API Anahtarları (Google Maps & Backend URL)
 └── README.md
 
 
